@@ -1,4 +1,4 @@
-# Projeto-Final
+# Projeto-SMTR
 
 Calcula tarifa de equilíbrio
 										
