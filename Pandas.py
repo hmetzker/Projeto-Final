@@ -1,10 +1,7 @@
-# Chama a biblioteca
-#import pandas as pd
+import pandas as pd
 
-#data = pd.read_excel('BD.xlsx')
+p_csv = pd.read_csv('BD.csv', sep=';')
+print(p_csv)
 
-#print(data)
-
-import sys
-print(sys.version)
-
+p_xlsx = pd.read_excel('BD.xlsx')
+print(p_xlsx)
