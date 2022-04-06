@@ -30,38 +30,33 @@ class CalculaTarifa:
         return self.total_2020_pax / self.total_2020_km
 
     def tarifa_equivalente(self):
-        # diferenca_km = total_2020_km / total_2019_km
-        # diferenca_pax = total_2020_pax / total_2019_pax
-
         custo_atual = self.tarifa_vigente * self.calcula_ipk_2019()
         custo_novo = custo_atual * (1 + self.perda_custo)
-
         self.tarifa_equilibrio = custo_novo / self.calcula_ipk_2020()
-
-        return self.tarifa_equilibrio, self.calcula_ipk_2019(), self.calcula_ipk_2020()
+        return self.calcula_ipk_2019(), self.calcula_ipk_2020(), self.tarifa_equilibrio
 
 
 if __name__ == '__main__':
-    tarif_vig = 4.05
-    perda_custo = -3.0549 / 100
-
+    tarifa_vig = 4.05
+    perda_oferta = -3.0549 / 100
     bd_xlsx = pd.read_excel('BD.xlsx')
-    df = pd.DataFrame(bd_xlsx)
+    d_fr = pd.DataFrame(bd_xlsx)
+    ct = CalculaTarifa(tarifa_vig, perda_oferta, d_fr)
+    total = ct.soma_excel()
+    for i in range(0, len(total), 2):
+        saida_km = 'KM 2020 = '
+        saida_pax = 'PAX 2020 = '
+        if i == 0:
+            saida_km = 'KM 2019 = '
+            saida_pax = 'PAX 2019 = '
+        print(f'{saida_km}{total[i]}')
+        print(f'{saida_pax}{total[i + 1]}')
 
-    ct = CalculaTarifa(tarif_vig, perda_custo, df)
-
-    ct.soma_excel()
-    # print()
-    # print(f'KM 2019 = {total_2019_km}')
-    # print(f'KM 2020 = {total_2020_km}')
-    # print()
-    # print(f'PAX 2019 = {total_2019_pax}')
-    # print(f'PAX 2020 = {total_2020_pax}')
-    #
-    # te = ct.tarifa_equivalente()
-    #
-    # print()
-    # print(f'IPK 2019 = {ipk_2019}')
-    # print(f'IPK 2020 = {ipk_2020}')
-    # print()
-    # print(f'TARIFA DE EQUILÍBRIO = {tarifa_equilibrio}')
+    t_eq = ct.tarifa_equivalente()
+    for i in range(len(t_eq)):
+        saida_te = 'IPK 2020 = '
+        if i == 0:
+            saida_te = 'IPK 2019 = '
+        elif i == 2:
+            saida_te = 'TARIFA DE EQUILÍBRIO = '
+        print(f'{saida_te}{t_eq[i]}')
