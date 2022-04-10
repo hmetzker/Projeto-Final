@@ -58,6 +58,11 @@ if __name__ == '__main__':
         primeiraVez = True
         ano_atip = input("ANO ATÍPICO = ")
         ano_ref = input("ANO DE REFERÊNCIA = ")
+
+# Ano atípico e/ou de referência fora dos limites (entre 2015 e 2021). Nesse caso, os valores serão corrigidos
+# pelos limites inferior (2015) e/ou superior (2021).
+# A próxima evolução será identificar automaticamente os limites inferior e superior, sem precisar fixá-los no código
+
         if ano_atip > '2021':
             ano_atip = '2021'
         if ano_ref < '2015':
