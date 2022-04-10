@@ -8,11 +8,9 @@ import matplotlib.pyplot as plt
 
 class CalculaTarifa:
 
-    def __init__(self, ano_atipico, ano_referencia, tarifa_vigente, perda_custo, df1, df2):
+    def __init__(self, tarifa_vigente, perda_custo, df1, df2):
 # variáveis de entrada
         self.tarifa_vigente = tarifa_vigente                # tarifa praticada vigente
-        self.ano_atipico = ano_atipico                      # ano de queda de oferta de viagens/ demanda de pax
-        self.ano_referencia = ano_referencia                # ano de referência de oferta de viagens/ demanda de pax
         self.perda_custo = np.float64(perda_custo) / 100    # perda pela retirada de veículos da frota de ônibus
         self.df1 = df1                                      # dataFrame referente ao ano atípico
         self.df2 = df2                                      # dataFrame referente ao ano de referência
@@ -48,14 +46,22 @@ class CalculaTarifa:
 
 
 if __name__ == '__main__':
-    ano_atip = input("ANO ATÍPICO = ")
-    ano_ref = input("ANO DE REFERÊNCIA = ")
+    ano_atip = 0
+    ano_ref = 1
+    primeiraVez = False
     while ano_atip <= ano_ref:
-        print()
-        print('Ano atípico deve ser maior do que o ano de referência...')
-        print()
+        if primeiraVez:
+            print()
+            print('Ano atípico deve ser maior do que o ano de referência...')
+            print()
+
+        primeiraVez = True
         ano_atip = input("ANO ATÍPICO = ")
         ano_ref = input("ANO DE REFERÊNCIA = ")
+        if ano_atip > '2021':
+            ano_atip = '2021'
+        if ano_ref < '2015':
+            ano_ref = '2015'
     else:
         perda_oferta = input("DIMINUIÇÃO DE CUSTO OPERACIONAL (%) = ")
         tarifa_vig = input("TARIFA VIGENTE = ")
@@ -69,7 +75,7 @@ if __name__ == '__main__':
         planilha_2 = pd.read_excel('BD2.xlsx', sheet_name = ano_ref, index_col = 0)
         d_fr1 = pd.DataFrame(planilha_1)
         d_fr2 = pd.DataFrame(planilha_2)
-        ct = CalculaTarifa(ano_atip, ano_ref, tarifa_vig, perda_oferta, d_fr1, d_fr2)
+        ct = CalculaTarifa(tarifa_vig, perda_oferta, d_fr1, d_fr2)
         total = ct.soma_excel()
         for i in range(0, len(total), 2):
             saida_km = f'KM {ano_atip} = '
