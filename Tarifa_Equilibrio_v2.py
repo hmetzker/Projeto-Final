@@ -99,8 +99,8 @@ if __name__ == '__main__':
                 saida_te = 'TARIFA DE EQUILÍBRIO = '
             print(f'{saida_te}{t_eq[i]}')
 # mostrando gráfico de barras, com index modificado
-        concData = pd.DataFrame({'valor': [np.float64(tarifa_vig), np.float64(t_eq[2])]}, index = ['T-vig', 'T-eq'])
-        concData['valor'].plot.barh()
+        geraExcel = pd.DataFrame({'valor': [np.float64(tarifa_vig), np.float64(t_eq[2])]}, index = ['T-vig', 'T-eq'])
+        geraExcel['valor'].plot.barh()
         plt.show()
 # gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
-        concData.to_excel('BD3.xlsx')
+        geraExcel.to_excel('BD3.xlsx')
