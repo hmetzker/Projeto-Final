@@ -75,11 +75,11 @@ class CalculaTarifa:
     def mostra_grafico(self):
         self.geraExcel = pd.DataFrame({'valor': [np.float64(self.tarifa_vigente), np.float64(self.tarifa_equilibrio)]}, index=['T-vig', 'T-eq'])
         self.geraExcel['valor'].plot.barh()
-        plt.show()
+        return plt.show()
 
 # gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
     def gera_Excel(self):
-        self.geraExcel.to_excel('BD3.xlsx')
+        return self.geraExcel.to_excel('BD3.xlsx')
 
 
 if __name__ == '__main__':
