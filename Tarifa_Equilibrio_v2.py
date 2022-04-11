@@ -20,6 +20,7 @@ class CalculaTarifa:
         self.total_ano_atipico_km = 0
         self.total_ano_atipico_pax = 0
         self.tarifa_equilibrio = 0
+        self.geraExcel = ''
 
 # totais do ano atípico e do ano de referência (oferta/ demanda de pax de acordo com o planejamento)
     def soma_excel(self):
@@ -43,6 +44,16 @@ class CalculaTarifa:
         custo_novo = custo_atual * (1 - (self.total_ano_atipico_km / self.total_ano_anterior_km * self.perda_custo))
         self.tarifa_equilibrio = custo_novo / self.calcula_ipk_ano_atipico()
         return self.calcula_ipk_ano_anterior(), self.calcula_ipk_ano_atipico(), self.tarifa_equilibrio
+
+# mostrando gráfico de barras, com index modificado
+    def mostra_grafico(self):
+        self.geraExcel = pd.DataFrame({'valor': [np.float64(self.tarifa_vigente), np.float64(self.tarifa_equilibrio)]}, index=['T-vig', 'T-eq'])
+        self.geraExcel['valor'].plot.barh()
+        return plt.show()
+
+# gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
+    def gera_Excel(self):
+        return self.geraExcel.to_excel('BD3.xlsx')
 
 
 if __name__ == '__main__':
@@ -98,9 +109,6 @@ if __name__ == '__main__':
             elif i == 2:
                 saida_te = 'TARIFA DE EQUILÍBRIO = '
             print(f'{saida_te}{t_eq[i]}')
-# mostrando gráfico de barras, com index modificado
-        geraExcel = pd.DataFrame({'valor': [np.float64(tarifa_vig), np.float64(t_eq[2])]}, index = ['T-vig', 'T-eq'])
-        geraExcel['valor'].plot.barh()
-        plt.show()
-# gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
-        geraExcel.to_excel('BD3.xlsx')
+
+    ct.mostra_grafico()
+    ct.gera_Excel()

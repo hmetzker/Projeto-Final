@@ -10,6 +10,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import xlsxwriter
 
 
 class CalculaTarifa:
@@ -32,7 +33,6 @@ class CalculaTarifa:
         self.total_ano_atipico_km = 0
         self.total_ano_atipico_pax = 0
         self.tarifa_equilibrio = 0
-        self.geraExcel = ''
 
 # totais do ano atípico e do ano de referência (oferta/ demanda de pax de acordo com o planejamento)
     def soma_excel(self):
@@ -79,7 +79,25 @@ class CalculaTarifa:
 
 # gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
     def gera_Excel(self):
-        return self.geraExcel.to_excel('BD3.xlsx')
+        gravaExcel = xlsxwriter.Workbook('BD3.xlsx')
+        planilhaUnica = gravaExcel.add_worksheet('Tarifa de equilíbrio')
+
+        monta_celulas = (['T-vig', self.tarifa_vigente], ['T-eq', self.tarifa_equilibrio])
+        real = gravaExcel.add_format({'num_format': 'R$ #.##0,0'})
+        centro = gravaExcel.add_format()
+        centro.set_align('center')
+        centro.set_bold()
+        row = 0
+        col = 0
+        planilhaUnica.write(row, col + 1, 'Valores', centro)
+        row += 1
+        for i, j in monta_celulas:
+            planilhaUnica.write(row, col, i, centro)
+            planilhaUnica.write(row, col + 1, float(j), real)
+            row += 1
+
+        gravaExcel.close()
+        return
 
 
 if __name__ == '__main__':
@@ -137,5 +155,5 @@ if __name__ == '__main__':
                 saida_te = 'TARIFA DE EQUILÍBRIO = '
             print(f'{saida_te}{t_eq[i]}')
 
-        ct.mostra_grafico()
-        ct.gera_Excel()
+    ct.mostra_grafico()
+    ct.gera_Excel()
