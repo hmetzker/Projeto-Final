@@ -4,8 +4,10 @@
 # 1- antes os nomes das planilhas não eram automaticos e tinhamos 2 importações de planilhas distintas do
 # BD2.xlsx para o Pandas (planilha_1, planilha_2). Utilizamos 2 DataFrames (d_fr1 e d_fr2);
 # 2- agora temos somente 1 importação da planilha BD2.xlsx e 1 DataFrame (planilha_BD2 e d_fr), ambos com
-# base em pesquisas no Pandas através dos anos digitados (keys) e aos totais (values).
-# 3- para auxiliar no código, utilizamos conversões da planilha e do DataFrame para uma lista e um dicionário.
+# base em pesquisas no Pandas através dos anos digitados (keys) e aos totais (values);
+# 3- para auxiliar no código, utilizamos conversões da planilha e do DataFrame para uma lista e um dicionário;
+# 4- Arquivo BD2.xlsx com N planilhas separadas por cada ano, contendo dados de km e pax pagantes.
+
 
 import pandas as pd
 # import numpy as np
