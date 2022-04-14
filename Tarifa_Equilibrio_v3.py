@@ -3,12 +3,12 @@
 # esta versão aprimora a importação do arquivo em Excel BD2.xlsx, ou seja:
 # 1- antes os nomes das planilhas não eram automaticos e tinhamos 2 importações de planilhas distintas do
 # BD2.xlsx para o Pandas (planilha_1, planilha_2). Utilizamos 2 DataFrames (d_fr1 e d_fr2);
-# 2- agora temos somente 1 importação da planilha BD2.xlsx e 1 DataFrame (planilha_BD2 e d_fr0), ambos com
+# 2- agora temos somente 1 importação da planilha BD2.xlsx e 1 DataFrame (planilha_BD2 e d_fr), ambos com
 # base em pesquisas no Pandas através dos anos digitados (keys) e aos totais (values).
 # 3- para auxiliar no código, utilizamos conversões da planilha e do DataFrame para uma lista e um dicionário.
 
 import pandas as pd
-import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 import xlsxwriter
 
@@ -20,7 +20,8 @@ class CalculaTarifa:
         self.ano_atipico = ano_atipico                      # ano da queda de oferta/ demanda de pax
         self.ano_referencia = ano_referencia                # ano de referência relativo à ofeta/ demanda de pax
         self.tarifa_vigente = tarifa_vigente                # tarifa praticada vigente
-        self.perda_custo = np.float64(perda_custo) / 100    # perda pela retirada de veículos da frota de ônibus
+#        self.perda_custo = np.float64(perda_custo) / 100    # perda pela retirada de veículos da frota de ônibus
+        self.perda_custo = float(perda_custo) / 100         # perda pela retirada de veículos da frota de ônibus
         self.planilha_BD2 = planilha_BD2                    # planilha BD2 importada para o Pandas
         self.lista_excel = lista_excel                      # corresponde BD2.xlsx convertido em lista
 
@@ -66,14 +67,17 @@ class CalculaTarifa:
 
 # tarifa calculada em função da queda de oferta/ demanda de pax (manutenção do equilíbrio econômico-financeiro)
     def tarifa_equilibrada(self):
-        custo_atual = np.float64(self.tarifa_vigente) * self.calcula_ipk_ano_anterior()
+#        custo_atual = np.float64(self.tarifa_vigente) * self.calcula_ipk_ano_anterior()
+        custo_atual = float(self.tarifa_vigente) * self.calcula_ipk_ano_anterior()
         custo_novo = custo_atual * (1 - (self.total_ano_atipico_km / self.total_ano_anterior_km * self.perda_custo))
         self.tarifa_equilibrio = custo_novo / self.calcula_ipk_ano_atipico()
         return self.calcula_ipk_ano_anterior(), self.calcula_ipk_ano_atipico(), self.tarifa_equilibrio
 
 # mostrando gráfico de barras, com index modificado
     def mostra_grafico(self):
-        self.geraExcel = pd.DataFrame({'valor': [np.float64(self.tarifa_vigente), np.float64(self.tarifa_equilibrio)]}, index=['T-vig', 'T-eq'])
+#        self.geraExcel = pd.DataFrame({'valor': [np.float64(self.tarifa_vigente), np.float64(self.tarifa_equilibrio)]}, index=['T-vig', 'T-eq'])
+        self.geraExcel = pd.DataFrame({'valor': [float(self.tarifa_vigente), float(self.tarifa_equilibrio)]},
+                                      index=['T-vig', 'T-eq'])
         self.geraExcel['valor'].plot.barh()
         return plt.show()
 
