@@ -8,7 +8,6 @@
 # 3- para auxiliar no código, utilizamos conversões da planilha e do DataFrame para uma lista e um dicionário;
 # 4- Arquivo BD2.xlsx com N planilhas separadas por cada ano, contendo dados de km e pax pagantes.
 
-
 import pandas as pd
 # import numpy as np
 import matplotlib.pyplot as plt

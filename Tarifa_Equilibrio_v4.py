@@ -154,7 +154,7 @@ if __name__ == '__main__':
     Janela = tk.Tk()
     Janela.title(f'Calcula Tarifa de Equilíbrio')
 
-# definir geometry
+# define geometry
     largura = 550
     altura = 430
     largura_screen = Janela.winfo_screenwidth()

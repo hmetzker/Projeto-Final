@@ -1,6 +1,5 @@
 # calcula a tarifa de equilíbrio em função da variação (perda ou ganho) entre dois períodos distintos
 
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
