@@ -51,9 +51,9 @@ class CalculaTarifa:
         self.geraExcel['valor'].plot.barh()
         return plt.show()
 
-# gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
+# gerando arquivo BD2_teq.xlsx com as tarifas vigente e de equilíbrio
     def gera_Excel(self):
-        return self.geraExcel.to_excel('BD3.xlsx')
+        return self.geraExcel.to_excel('BD2_teq.xlsx')
 
 
 if __name__ == '__main__':

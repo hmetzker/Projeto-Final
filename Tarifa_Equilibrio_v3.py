@@ -83,9 +83,9 @@ class CalculaTarifa:
         self.geraExcel['valor'].plot.barh()
         return plt.show()
 
-# gerando arquivo BD3.xlsx com as tarifas vigente e de equilíbrio
+# gerando arquivo BD2_teq.xlsx com as tarifas vigente e de equilíbrio
     def gera_Excel(self):
-        gravaExcel = xlsxwriter.Workbook('BD3.xlsx')
+        gravaExcel = xlsxwriter.Workbook('BD2_teq.xlsx')
         planilhaUnica = gravaExcel.add_worksheet('Tarifa de equilíbrio')
 
         monta_celulas = (['T-vig', self.tarifa_vigente], ['T-eq', self.tarifa_equilibrio])
